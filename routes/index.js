@@ -16,6 +16,10 @@ exports.index = function (req, res) {
   res.render('index');
 };
 
+exports.logger = function (req, res) {
+  res.render('logger');
+};
+
 exports.save = function (req, res) {
   var document = req.body;
 

@@ -1,83 +1,592 @@
-doctype 5
-html.wf-ffmetaserifwebpro-n5-active.wf-ffmetaserifwebpro-n7-active.wf-ffmetawebpro-n4-active.wf-active(lang='en')
-  head
-    title joola.io.logger
-    link(rel='stylesheet', href='/assets/css/site.css')
-    script(src='/assets/js/jquery-1.10.1.min.js')
-    script(src='/assets/js/timeago.js')
-    script(src='/assets/js/jquery.dotdotdot.min.js')
-    script(src='/assets/js/site.js')
-  body
-    div.left-nav
-      img(src="/assets/img/logo.logger.png")
-      img.grip(src="/assets/img/grip.png")
-      div.search
-        input.searchbox(type="text")
-      div.options
-        div.options-env
-          h3 Environments
-          div.options-env-qa
-            input.chk-env(type="checkbox", checked="true", data-name="qa")
-            | QA 
-          div.options-env-staging
-            input.chk-env(type="checkbox", checked="true", data-name="staging")
-            | Staging          
-          div.options-env-demo
-            input.chk-env(type="checkbox", checked="true", data-name="demo")
-            | Demo
-          div.options-env-production
-            input.chk-env(type="checkbox", checked="true", data-name="production")
-            | Production
+include head.jade
+body
 
-        div.options-component
-          h3 Components
-          div.options-component-engine
-            input.chk-component(type="checkbox", checked="true", data-name="engine")
-            | Engine 
-          div.options-component-analytics
-            input.chk-component(type="checkbox", checked="true", data-name="analytics")
-            | Analytics
-          div.options-component-sdk
-            input.chk-component(type="checkbox", checked="true", data-name="sdk")
-            | SDK
-          div.options-component-config
-            input.chk-component(type="checkbox", checked="true", data-name="config")
-            | Configuration
+.navbar
+  .navbar-inner
+    .container-fluid
+      a.btn.btn-navbar(data-toggle='collapse', data-target='.top-nav.nav-collapse,.sidebar-nav.nav-collapse')
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      a.brand(href='index.html')
+        span Acme, Inc
 
-        div.options-level
-          h3 Level
-          div.options-level-silly
-            input.chk-level(type="checkbox", checked="true", data-name="silly")
-            | Silly
-          div.options-level-debug
-            input.chk-level(type="checkbox", checked="true", data-name="debug")
-            | Debug          
-          div.options-level-info
-            input.chk-level(type="checkbox", checked="true", data-name="info")
-            | Info
-          div.options-level-warn
-            input.chk-level(type="checkbox", checked="true", data-name="warn")
-            | Warning
-          div.options-level-error
-            input.chk-level(type="checkbox", checked="true", data-name="error")
-            | Error
-        div.clear-both
-      div.control
-        button.pause-lines Pause
-        button.clear-lines Clear
-        
-  div.console(id="console")
-    a(href="#", id="tail", data-ember-action="54", style="top: 0px;")
-      span(class="status")
-      label Follow logs
-    //div.line
-      span.timestamp ''
-      span.log-env demo
-      span.log-component engine
-      span.log-level info
-      span.message this is a test
+      .nav-no-collapse.header-nav
+        ul.nav.pull-right
+          li.dropdown.hidden-phone
+            a.btn.dropdown-toggle(data-toggle='dropdown', href='#')
+              i.halflings-icon.white.warning-sign
+            ul.dropdown-menu.notifications
+              li
+                span.dropdown-menu-title You have 11 notifications
+              li
+                a(href='#')
+                  | +
+                  i.halflings-icon.white.user
+                  span.message New user registration
+                  span.time 1 min
+              li
+                a(href='#')
+                  | +
+                  i.halflings-icon.white.comment
+                  span.message New comment
+                  span.time 7 min
+              li
+                a(href='#')
+                  | +
+                  i.halflings-icon.white.comment
+                  span.message New comment
+                  span.time 8 min
+              li
+                a(href='#')
+                  | +
+                  i.halflings-icon.white.comment
+                  span.message New comment
+                  span.time 16 min
+              li
+                a(href='#')
+                  | +
+                  i.halflings-icon.white.user
+                  span.message New user registration
+                  span.time 36 min
+              li
+                a(href='#')
+                  | +
+                  i.halflings-icon.white.cart
+                  span.message 2 items sold
+                  span.time 1 hour
+              li.warning
+                a(href='#')
+                  | -
+                  i.halflings-icon.white.user
+                  span.message User deleted account
+                  span.time 2 hour
+              li.warning
+                a(href='#')
+                  | -
+                  i.halflings-icon.white.shopping-cart
+                  span.message Transaction was canceled
+                  span.time 6 hour
+              li
+                a(href='#')
+                  | +
+                  i.halflings-icon.white.comment
+                  span.message New comment
+                  span.time yesterday
+              li
+                a(href='#')
+                  | +
+                  i.halflings-icon.white.user
+                  span.message New user registration
+                  span.time yesterday
+              li
+                a.dropdown-menu-sub-footer View all notifications
 
-    //div.line this is a test
+          li.dropdown.hidden-phone
+            a.btn.dropdown-toggle(data-toggle='dropdown', href='#')
+              i.halflings-icon.white.tasks
+            ul.dropdown-menu.tasks
+              li
+                span.dropdown-menu-title You have 17 tasks in progress
+              li
+                a(href='#')
+                  span.header
+                    span.title iOS Development
+                    span.percent
+                  .taskProgress.progressSlim.progressBlue 80
+              li
+                a(href='#')
+                  span.header
+                    span.title Android Development
+                    span.percent
+                  .taskProgress.progressSlim.progressBlue 47
+              li
+                a(href='#')
+                  span.header
+                    span.title Django Project For Google
+                    span.percent
+                  .taskProgress.progressSlim.progressBlue 32
+              li
+                a(href='#')
+                  span.header
+                    span.title SEO for new sites
+                    span.percent
+                  .taskProgress.progressSlim.progressBlue 63
+              li
+                a(href='#')
+                  span.header
+                    span.title New blog posts
+                    span.percent
+                  .taskProgress.progressSlim.progressBlue 80
+              li
+                a.dropdown-menu-sub-footer View all tasks
 
+          li.dropdown.hidden-phone
+            a.btn.dropdown-toggle(data-toggle='dropdown', href='#')
+              i.halflings-icon.white.envelope
+            ul.dropdown-menu.messages
+              li
+                span.dropdown-menu-title You have 9 messages
+              li
+                a(href='#')
+                  span.avatar
+                    img(src='img/avatar.jpg', alt='Avatar')
+                  span.header
+                    span.from
+                      | Łukasz Holeczek
+                    span.time
+                      | 6 min
+                  span.message
+                    | Lorem ipsum dolor sit amet consectetur adipiscing elit, et al commore
+              li
+                a(href='#')
+                  span.avatar
+                    img(src='img/avatar2.jpg', alt='Avatar')
+                  span.header
+                    span.from
+                      | Megan Abott
+                    span.time
+                      | 56 min
+                  span.message
+                    | Lorem ipsum dolor sit amet consectetur adipiscing elit, et al commore
+              li
+                a(href='#')
+                  span.avatar
+                    img(src='img/avatar3.jpg', alt='Avatar')
+                  span.header
+                    span.from
+                      | Kate Ross
+                    span.time
+                      | 3 hours
+                  span.message
+                    | Lorem ipsum dolor sit amet consectetur adipiscing elit, et al commore
+              li
+                a(href='#')
+                  span.avatar
+                    img(src='img/avatar4.jpg', alt='Avatar')
+                  span.header
+                    span.from
+                      | Julie Blank
+                    span.time
+                      | yesterday
+                  span.message
+                    | Lorem ipsum dolor sit amet consectetur adipiscing elit, et al commore
+              li
+                a(href='#')
+                  span.avatar
+                    img(src='img/avatar5.jpg', alt='Avatar')
+                  span.header
+                    span.from
+                      | Jane Sanders
+                    span.time
+                      | Jul 25, 2012
+                  span.message
+                    | Lorem ipsum dolor sit amet consectetur adipiscing elit, et al commore
+              li
+                a.dropdown-menu-sub-footer View all messages
 
-    script(src="/socket.io/socket.io.js")
+          li
+            a.btn(href='#')
+              i.halflings-icon.white.wrench
+
+          li.dropdown
+            a.btn.dropdown-toggle(data-toggle='dropdown', href='#')
+              i.halflings-icon.white.user
+              | Łukasz Holeczek
+              span.caret
+            ul.dropdown-menu
+              li
+                a(href='#')
+                  i.halflings-icon.white.user
+                  | Profile
+              li
+                a(href='login.html')
+                  i.halflings-icon.white.off
+                  | Logout
+
+.container-fluid
+  .row-fluid
+
+    #sidebar-left.span1
+      .nav-collapse.sidebar-nav
+        ul.nav.nav-tabs.nav-stacked.main-menu
+          li
+            a(href='index.html')
+              i.fa-icon-bar-chart
+              span.hidden-tablet  Dashboard
+          li
+            a(href='infrastructure.html')
+              i.fa-icon-hdd
+              span.hidden-tablet  Infrastructure
+          li
+            a(href='messages.html')
+              i.fa-icon-envelope
+              span.hidden-tablet  Messages
+          li
+            a(href='tasks.html')
+              i.fa-icon-tasks
+              span.hidden-tablet  Tasks
+          li
+            a(href='ui.html')
+              i.fa-icon-eye-open
+              span.hidden-tablet  UI Features
+          li
+            a(href='widgets.html')
+              i.fa-icon-dashboard
+              span.hidden-tablet  Widgets
+          li
+            a.dropmenu(href='#')
+              i.fa-icon-folder-close-alt
+              span.hidden-tablet  Dropdown
+            ul
+              li
+                a.submenu(href='submenu1.html')
+                  i.fa-icon-file-alt
+                  span.hidden-tablet  Sub Menu 1
+              li
+                a.submenu(href='submenu2.html')
+                  i.fa-icon-file-alt
+                  span.hidden-tablet  Sub Menu 2
+              li
+                a.submenu(href='submenu3.html')
+                  i.fa-icon-file-alt
+                  span.hidden-tablet  Sub Menu 3
+          li
+            a(href='form.html')
+              i.fa-icon-edit
+              span.hidden-tablet  Forms
+          li
+            a(href='chart.html')
+              i.fa-icon-list-alt
+              span.hidden-tablet  Charts
+          li
+            a(href='typography.html')
+              i.fa-icon-font
+              span.hidden-tablet  Typography
+          li
+            a(href='gallery.html')
+              i.fa-icon-picture
+              span.hidden-tablet  Gallery
+          li
+            a(href='table.html')
+              i.fa-icon-align-justify
+              span.hidden-tablet  Tables
+          li
+            a(href='calendar.html')
+              i.fa-icon-calendar
+              span.hidden-tablet  Calendar
+          li
+            a(href='file-manager.html')
+              i.fa-icon-folder-open
+              span.hidden-tablet  File Manager
+          li
+            a(href='icon.html')
+              i.fa-icon-star
+              span.hidden-tablet  Icons
+          li
+            a(href='login.html')
+              i.fa-icon-lock
+              span.hidden-tablet  Login Page
+    a#main-menu-toggle.hidden-phone.open
+      i.fa-icon-reorder
+
+    noscript
+      .alert.alert-block.span11
+        h4.alert-heading Warning!
+        p
+          | You need to have
+          a(href='http://en.wikipedia.org/wiki/JavaScript', target='_blank') JavaScript
+          | enabled to use this site.
+
+    #content.span11
+      .row-fluid
+
+      .row-fluid
+        #stats-chart2.span12(style='height: 300px; overflow: hidden;')
+      hr
+      .row-fluid
+        .widget.span5(ontablet='span12', ondesktop='span5')
+          h2
+            span.glyphicons.globe
+              i
+            | Demographics
+          hr
+          .content
+            .verticalChart
+              .singleBar
+                .bar
+                  .value
+                    span 37%
+                .title US
+              .singleBar
+                .bar
+                  .value
+                    span 16%
+                .title PL
+              .singleBar
+                .bar
+                  .value
+                    span 12%
+                .title GB
+              .singleBar
+                .bar
+                  .value
+                    span 9%
+                .title DE
+              .singleBar
+                .bar
+                  .value
+                    span 7%
+                .title NL
+              .singleBar
+                .bar
+                  .value
+                    span 6%
+                .title CA
+              .singleBar
+                .bar
+                  .value
+                    span 5%
+                .title FI
+              .singleBar
+                .bar
+                  .value
+                    span 4%
+                .title RU
+              .singleBar
+                .bar
+                  .value
+                    span 3%
+                .title AU
+              .singleBar
+                .bar
+                  .value
+                    span 1%
+                .title N/A
+
+        .widget.span3.noMargin(ontablet='span6', ondesktop='span3')
+          h2
+            span.glyphicons.pie_chart
+              i
+            | Browsers
+          hr
+          .content
+            .browserStat.big
+              img(src='img/browser-chrome-big.png', alt='Chrome')
+              span 34%
+            .browserStat.big
+              img(src='img/browser-firefox-big.png', alt='Firefox')
+              span 34%
+            .browserStat
+              img(src='img/browser-ie.png', alt='Internet Explorer')
+              span 34%
+            .browserStat
+              img(src='img/browser-safari.png', alt='Safari')
+              span 34%
+            .browserStat
+              img(src='img/browser-opera.png', alt='Opera')
+              span 34%
+        .widget.span4(ontablet='span6', ondesktop='span4')
+          h2
+            span.glyphicons.charts
+              i
+            | Weekly Stat
+          hr
+          .content
+            .sparkLineStats
+              ul.unstyled
+                li
+                  span.sparkLineStats3
+                  | Pageviews:
+                  span.number 781
+                li
+                  span.sparkLineStats4
+                  | Pages / Visit:
+                  span.number 2,19
+                li
+                  span.sparkLineStats5
+                  | Avg. Visit Duration:
+                  span.number 00:02:58
+                li
+                  span.sparkLineStats6
+                  | Bounce Rate:
+                  span.number 59,83%
+                li
+                  span.sparkLineStats7
+                  | % New Visits:
+                  span.number 70,79%
+                li
+                  span.sparkLineStats8
+                  | % Returning Visitor:
+                  span.number 29,21%
+
+      hr
+      .row-fluid
+        .widget.span6(ontablet='span6', ondesktop='span6')
+          h2
+            span.glyphicons.facebook
+              i
+            | Facebook Fans
+          hr
+          .content
+            #facebookChart(style='height: 300px; overflow: hidden;')
+
+        .widget.span6(ontablet='span6', ondesktop='span6')
+          h2
+            span.glyphicons.twitter
+              i
+            | Twitter Followers
+          hr
+          .content
+            #twitterChart(style='height: 300px; overflow: hidden;')
+
+    #widgets-area.span2.hidden-tablet.hidden-phone
+      ul#myTab.nav.tab-menu.nav-tabs
+        li.active
+          a(href='#charts')
+            i.fa-icon-bar-chart
+        li
+          a(href='#users')
+            i.fa-icon-group
+        li
+          a(href='#messages')
+            i.fa-icon-envelope
+        li
+          a#close-widgets-area(href='#')
+            i.fa-icon-signin
+      #myTabContent.tab-content
+        #charts.tab-pane.active
+          .bar-stat
+            span.title Account balance
+            span.value $19 999,99
+            span.chart.green 7,3,2,6,6,3,9,0,1,4
+          hr
+          .bar-stat
+            span.title Clients
+            span.value 1278
+            span.chart.yellow 8,2,5,4,7,4,7,2,5,9
+          hr
+          .bar-stat
+            span.title Orders
+            span.value 5876
+            span.chart.blue 2,4,6,8,3,5,9,3,2,2
+          hr
+          .bar-stat
+            span.title Messages
+            span.value 673
+            span.chart.red 0,3,3,8,3,3,2,7,8,4
+          hr
+          #cpu-usage
+          ul.progress-bars
+            li
+              span.title Free Memory
+              span.percent
+              .taskProgress.progressSlim.progressGreen 80
+            li
+              span.title Free HDD Drive
+              span.percent
+              .taskProgress.progressSlim.progressYellow 20
+            li
+              span.title Free SSD Drive
+              span.percent
+              .taskProgress.progressSlim.progressBlue 57
+            li
+              span.title Transfer
+              span.percent
+              .taskProgress.progressSlim.progressRed 45
+        #users.tab-pane
+          ul.users-list
+            li
+              a(href='#')
+                span.status.active
+                span.avatar
+                  img.img-circle(src='img/avatar.jpg', alt='Avatar')
+                span.name Łukasz Holeczek
+            li
+              a(href='#')
+                span.status.busy
+                span.avatar
+                  img.img-circle(src='img/avatar2.jpg', alt='Avatar')
+                span.name Megan Abott
+            li
+              a(href='#')
+                span.status.disable
+                span.avatar
+                  img.img-circle(src='img/avatar3.jpg', alt='Avatar')
+                span.name Kate Ross
+            li
+              a(href='#')
+                span.status.active
+                span.avatar
+                  img.img-circle(src='img/avatar4.jpg', alt='Avatar')
+                span.name Julie Blank
+            li
+              a(href='#')
+                span.status
+                span.avatar
+                  img.img-circle(src='img/avatar5.jpg', alt='Avatar')
+                span.name Jane Sanders
+            li
+              a(href='#') View all users
+        #messages.tab-pane
+          ul.messages-list
+            li
+              a(href='#')
+                .avatar
+                  img.img-circle(src='img/avatar.jpg', alt='Avatar')
+                span.name Łukasz Holeczek
+                span.date 25/6/2013
+                span.title Custom Bootstrap design for new client
+            li
+              a(href='#')
+                .avatar
+                  img.img-circle(src='img/avatar2.jpg', alt='Avatar')
+                span.name Megan Abott
+                span.date 25/6/2013
+                span.title Custom Bootstrap design for new client
+            li
+              a(href='#')
+                .avatar
+                  img.img-circle(src='img/avatar3.jpg', alt='Avatar')
+                span.name Kate Ross
+                span.date 25/6/2013
+                span.title Custom Bootstrap design for new client
+            li
+              a(href='#')
+                .avatar
+                  img.img-circle(src='img/avatar4.jpg', alt='Avatar')
+                span.name Julie Blank
+                span.date 25/6/2013
+                span.title Custom Bootstrap design for new client
+            li
+              a(href='#')
+                .avatar
+                  img.img-circle(src='img/avatar5.jpg', alt='Avatar')
+                span.name Jane Sanders
+                span.date 25/6/2013
+                span.title Custom Bootstrap design for new client
+            li
+              a(href='#') View all messages
+
+    a#widgets-area-button.hidden-tablet.hidden-phone.open
+      i.fa-icon-reorder
+
+  #myModal.modal.hide.fade
+    .modal-header
+      button.close(type='button', data-dismiss='modal') ×
+      h3 Settings
+    .modal-body
+      p Here settings can be configured...
+    .modal-footer
+      a.btn(href='#', data-dismiss='modal') Close
+      a.btn.btn-primary(href='#') Save changes
+  .clearfix
+  footer
+    p
+      span(style='text-align: left; float: left;')
+        | © 2013
+        a(href='http://bootstrapmaster.com', alt='Twitter Bootstrap Themes') creativeLabs
+      span.hidden-phone(style='text-align: right; float: right;')
+        | Powered by:
+        a(href='http://admintemplates.co', alt='Bootstrap Admin Templates') ACME Dashboard
+include footer.jade

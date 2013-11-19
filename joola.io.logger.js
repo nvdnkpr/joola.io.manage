@@ -62,7 +62,7 @@ app.use(express.session({
   expires: new Date(Date.now() + 3600000) //1 Hour
 }));
 app.use(require('joola.io.status')({baseDir:__dirname}));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'assets')));
 
 //Logger
 
@@ -81,6 +81,7 @@ app.use(express.logger(function (req, res) {
 }));
 //Routes
 app.get('/', router.index);
+app.get('/logger', router.logger);
 app.post('/save', router.save);
 
 //Service Start/Stop & Control Port
