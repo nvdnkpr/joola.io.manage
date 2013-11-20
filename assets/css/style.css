@@ -3106,3 +3106,12 @@ ul.progress-bars li .percent {
   right: 0px;
   font-weight: bold;
 }
+
+.pregroup {
+  padding:10px 10px;
+  float:left;
+  width:350px;
+}
+.ghostdiv {
+  padding:10px 10px;
+}

@@ -79,13 +79,15 @@ function drawLogLine(line) {
   var $host = $('<span class="host"></span>');
   var $component = $('<span class="component"></span>');
   var $level = $('<span class="level"></span>');
+  var $group = $('<div class="pregroup"></div>')
   var $message = $('<span class="desc"></span>');
 
-  $line.append($timestamp);
-  $line.append($env);
-  $line.append($host);
-  $line.append($component);
-  $line.append($level);
+  $group.append($timestamp);
+  $group.append($env);
+  $group.append($host);
+  $group.append($component);
+  $group.append($level);
+  $line.append($group);
   $line.append($message);
 
   var baseHeight = checkLineHeight($line);

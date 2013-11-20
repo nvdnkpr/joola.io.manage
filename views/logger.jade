@@ -210,271 +210,265 @@ body
                   a(href='login.html')
                     i.halflings-icon.white.off
                     | Logout
-            //
-               end: User Dropdown
-        //
-           end: Header Menu
-    //
-       start: Header
-    .container-fluid
-      .row-fluid
-        //
-           start: Main Menu
-        #sidebar-left.span1
-          .nav-collapse.sidebar-nav
-            ul.nav.nav-tabs.nav-stacked.main-menu
-              li
-                a(href='index.html')
-                  i.fa-icon-bar-chart
-                  span.hidden-tablet  Dashboard
-              li
-                a(href='infrastructure.html')
-                  i.fa-icon-hdd
-                  span.hidden-tablet  Infrastructure
-              li
-                a(href='messages.html')
-                  i.fa-icon-envelope
-                  span.hidden-tablet  Messages
-              li
-                a(href='tasks.html')
-                  i.fa-icon-tasks
-                  span.hidden-tablet  Tasks
-              li
-                a(href='ui.html')
-                  i.fa-icon-eye-open
-                  span.hidden-tablet  UI Features
-              li
-                a(href='widgets.html')
-                  i.fa-icon-dashboard
-                  span.hidden-tablet  Widgets
-              li
-                a.dropmenu(href='#')
-                  i.fa-icon-folder-close-alt
-                  span.hidden-tablet  Dropdown
-                ul
-                  li
-                    a.submenu(href='submenu1.html')
-                      i.fa-icon-file-alt
-                      span.hidden-tablet  Sub Menu 1
-                  li
-                    a.submenu(href='submenu2.html')
-                      i.fa-icon-file-alt
-                      span.hidden-tablet  Sub Menu 2
-                  li
-                    a.submenu(href='submenu3.html')
-                      i.fa-icon-file-alt
-                      span.hidden-tablet  Sub Menu 3
-              li
-                a(href='form.html')
-                  i.fa-icon-edit
-                  span.hidden-tablet  Forms
-              li
-                a(href='chart.html')
-                  i.fa-icon-list-alt
-                  span.hidden-tablet  Charts
-              li
-                a(href='typography.html')
-                  i.fa-icon-font
-                  span.hidden-tablet  Typography
-              li
-                a(href='gallery.html')
-                  i.fa-icon-picture
-                  span.hidden-tablet  Gallery
-              li
-                a(href='table.html')
-                  i.fa-icon-align-justify
-                  span.hidden-tablet  Tables
-              li
-                a(href='calendar.html')
-                  i.fa-icon-calendar
-                  span.hidden-tablet  Calendar
-              li
-                a(href='file-manager.html')
-                  i.fa-icon-folder-open
-                  span.hidden-tablet  File Manager
-              li
-                a(href='icon.html')
-                  i.fa-icon-star
-                  span.hidden-tablet  Icons
-              li
-                a(href='login.html')
-                  i.fa-icon-lock
-                  span.hidden-tablet  Login Page
-        a#main-menu-toggle.hidden-phone.open
-          i.fa-icon-reorder
-        //
-           end: Main Menu
-        noscript
-          .alert.alert-block.span11
-            h4.alert-heading Warning!
-            p
-              | You need to have
-              a(href='http://en.wikipedia.org/wiki/JavaScript', target='_blank') JavaScript
-              | enabled to use this site.
-        //
-           start: Content
-        #content.span11
-          .row-fluid
-            .span12
-              h1 Log
-              div#console.console
 
-                .clearfix
+  .container-fluid
+    .row-fluid
 
-        #widgets-area.span2.hidden-tablet.hidden-phone
-          ul#myTab.nav.tab-menu.nav-tabs
-            li.active
-              a(href='#charts')
+      #sidebar-left.span1
+        .nav-collapse.sidebar-nav
+          ul.nav.nav-tabs.nav-stacked.main-menu
+            li
+              a(href='index.html')
                 i.fa-icon-bar-chart
+                span.hidden-tablet  Dashboard
             li
-              a(href='#users')
-                i.fa-icon-group
+              a(href='infrastructure.html')
+                i.fa-icon-hdd
+                span.hidden-tablet  Infrastructure
             li
-              a(href='#messages')
+              a(href='messages.html')
                 i.fa-icon-envelope
+                span.hidden-tablet  Messages
             li
-              a#close-widgets-area(href='#')
-                i.fa-icon-signin
-          #myTabContent.tab-content
-            #charts.tab-pane.active
-              .bar-stat
-                span.title Account balance
-                span.value $19 999,99
-                span.chart.green 7,3,2,6,6,3,9,0,1,4
-              hr
-              .bar-stat
-                span.title Clients
-                span.value 1278
-                span.chart.yellow 8,2,5,4,7,4,7,2,5,9
-              hr
-              .bar-stat
-                span.title Orders
-                span.value 5876
-                span.chart.blue 2,4,6,8,3,5,9,3,2,2
-              hr
-              .bar-stat
-                span.title Messages
-                span.value 673
-                span.chart.red 0,3,3,8,3,3,2,7,8,4
-              hr
-              #cpu-usage
-              ul.progress-bars
+              a(href='tasks.html')
+                i.fa-icon-tasks
+                span.hidden-tablet  Tasks
+            li
+              a(href='ui.html')
+                i.fa-icon-eye-open
+                span.hidden-tablet  UI Features
+            li
+              a(href='widgets.html')
+                i.fa-icon-dashboard
+                span.hidden-tablet  Widgets
+            li
+              a.dropmenu(href='#')
+                i.fa-icon-folder-close-alt
+                span.hidden-tablet  Dropdown
+              ul
                 li
-                  span.title Free Memory
-                  span.percent
-                  .taskProgress.progressSlim.progressGreen 80
+                  a.submenu(href='submenu1.html')
+                    i.fa-icon-file-alt
+                    span.hidden-tablet  Sub Menu 1
                 li
-                  span.title Free HDD Drive
-                  span.percent
-                  .taskProgress.progressSlim.progressYellow 20
+                  a.submenu(href='submenu2.html')
+                    i.fa-icon-file-alt
+                    span.hidden-tablet  Sub Menu 2
                 li
-                  span.title Free SSD Drive
-                  span.percent
-                  .taskProgress.progressSlim.progressBlue 57
-                li
-                  span.title Transfer
-                  span.percent
-                  .taskProgress.progressSlim.progressRed 45
-            #users.tab-pane
-              ul.users-list
-                li
-                  a(href='#')
-                    span.status.active
-                    span.avatar
-                      img.img-circle(src='img/avatar.jpg', alt='Avatar')
-                    span.name Łukasz Holeczek
-                li
-                  a(href='#')
-                    span.status.busy
-                    span.avatar
-                      img.img-circle(src='img/avatar2.jpg', alt='Avatar')
-                    span.name Megan Abott
-                li
-                  a(href='#')
-                    span.status.disable
-                    span.avatar
-                      img.img-circle(src='img/avatar3.jpg', alt='Avatar')
-                    span.name Kate Ross
-                li
-                  a(href='#')
-                    span.status.active
-                    span.avatar
-                      img.img-circle(src='img/avatar4.jpg', alt='Avatar')
-                    span.name Julie Blank
-                li
-                  a(href='#')
-                    span.status
-                    span.avatar
-                      img.img-circle(src='img/avatar5.jpg', alt='Avatar')
-                    span.name Jane Sanders
-                li
-                  a(href='#') View all users
-            #messages.tab-pane
-              ul.messages-list
-                li
-                  a(href='#')
-                    .avatar
-                      img.img-circle(src='img/avatar.jpg', alt='Avatar')
-                    span.name Łukasz Holeczek
-                    span.date 25/6/2013
-                    span.title Custom Bootstrap design for new client
-                li
-                  a(href='#')
-                    .avatar
-                      img.img-circle(src='img/avatar2.jpg', alt='Avatar')
-                    span.name Megan Abott
-                    span.date 25/6/2013
-                    span.title Custom Bootstrap design for new client
-                li
-                  a(href='#')
-                    .avatar
-                      img.img-circle(src='img/avatar3.jpg', alt='Avatar')
-                    span.name Kate Ross
-                    span.date 25/6/2013
-                    span.title Custom Bootstrap design for new client
-                li
-                  a(href='#')
-                    .avatar
-                      img.img-circle(src='img/avatar4.jpg', alt='Avatar')
-                    span.name Julie Blank
-                    span.date 25/6/2013
-                    span.title Custom Bootstrap design for new client
-                li
-                  a(href='#')
-                    .avatar
-                      img.img-circle(src='img/avatar5.jpg', alt='Avatar')
-                    span.name Jane Sanders
-                    span.date 25/6/2013
-                    span.title Custom Bootstrap design for new client
-                li
-                  a(href='#') View all messages
-        //
-           end: Widgets Area
-        a#widgets-area-button.hidden-tablet.hidden-phone.open
-          i.fa-icon-reorder
+                  a.submenu(href='submenu3.html')
+                    i.fa-icon-file-alt
+                    span.hidden-tablet  Sub Menu 3
+            li
+              a(href='form.html')
+                i.fa-icon-edit
+                span.hidden-tablet  Forms
+            li
+              a(href='chart.html')
+                i.fa-icon-list-alt
+                span.hidden-tablet  Charts
+            li
+              a(href='typography.html')
+                i.fa-icon-font
+                span.hidden-tablet  Typography
+            li
+              a(href='gallery.html')
+                i.fa-icon-picture
+                span.hidden-tablet  Gallery
+            li
+              a(href='table.html')
+                i.fa-icon-align-justify
+                span.hidden-tablet  Tables
+            li
+              a(href='calendar.html')
+                i.fa-icon-calendar
+                span.hidden-tablet  Calendar
+            li
+              a(href='file-manager.html')
+                i.fa-icon-folder-open
+                span.hidden-tablet  File Manager
+            li
+              a(href='icon.html')
+                i.fa-icon-star
+                span.hidden-tablet  Icons
+            li
+              a(href='login.html')
+                i.fa-icon-lock
+                span.hidden-tablet  Login Page
+      a#main-menu-toggle.hidden-phone.open
+        i.fa-icon-reorder
       //
-        /fluid-row
-      #myModal.modal.hide.fade
-        .modal-header
-          button.close(type='button', data-dismiss='modal') ×
-          h3 Settings
-        .modal-body
-          p Here settings can be configured...
-        .modal-footer
-          a.btn(href='#', data-dismiss='modal') Close
-          a.btn.btn-primary(href='#') Save changes
-      .clearfix
-      footer
-        p
-          span(style='text-align: left; float: left;')
-            | © 2013
-            a(href='http://bootstrapmaster.com', alt='Twitter Bootstrap Themes') creativeLabs
-          span.hidden-phone(style='text-align: right; float: right;')
-            | Powered by:
-            a(href='http://admintemplates.co', alt='Bootstrap Admin Templates') ACME Dashboard
+         end: Main Menu
+      noscript
+        .alert.alert-block.span11
+          h4.alert-heading Warning!
+          p
+            | You need to have
+            a(href='http://en.wikipedia.org/wiki/JavaScript', target='_blank') JavaScript
+            | enabled to use this site.
+      //
+         start: Content
+      #content.span11
+        .row-fluid
+          .span12
+            h1 Log
+            div#console.console
 
-  include footer.jade
-  script(src="/socket.io/socket.io.js")
-  script(src='/js/timeago.js')
-  script(src='/js/jquery.dotdotdot.min.js')
-  script(src="/js/site.js")
+              .clearfix
+
+      #widgets-area.span2.hidden-tablet.hidden-phone
+        ul#myTab.nav.tab-menu.nav-tabs
+          li.active
+            a(href='#charts')
+              i.fa-icon-bar-chart
+          li
+            a(href='#users')
+              i.fa-icon-group
+          li
+            a(href='#messages')
+              i.fa-icon-envelope
+          li
+            a#close-widgets-area(href='#')
+              i.fa-icon-signin
+        #myTabContent.tab-content
+          #charts.tab-pane.active
+            .bar-stat
+              span.title Account balance
+              span.value $19 999,99
+              span.chart.green 7,3,2,6,6,3,9,0,1,4
+            hr
+            .bar-stat
+              span.title Clients
+              span.value 1278
+              span.chart.yellow 8,2,5,4,7,4,7,2,5,9
+            hr
+            .bar-stat
+              span.title Orders
+              span.value 5876
+              span.chart.blue 2,4,6,8,3,5,9,3,2,2
+            hr
+            .bar-stat
+              span.title Messages
+              span.value 673
+              span.chart.red 0,3,3,8,3,3,2,7,8,4
+            hr
+            #cpu-usage
+            ul.progress-bars
+              li
+                span.title Free Memory
+                span.percent
+                .taskProgress.progressSlim.progressGreen 80
+              li
+                span.title Free HDD Drive
+                span.percent
+                .taskProgress.progressSlim.progressYellow 20
+              li
+                span.title Free SSD Drive
+                span.percent
+                .taskProgress.progressSlim.progressBlue 57
+              li
+                span.title Transfer
+                span.percent
+                .taskProgress.progressSlim.progressRed 45
+          #users.tab-pane
+            ul.users-list
+              li
+                a(href='#')
+                  span.status.active
+                  span.avatar
+                    img.img-circle(src='img/avatar.jpg', alt='Avatar')
+                  span.name Łukasz Holeczek
+              li
+                a(href='#')
+                  span.status.busy
+                  span.avatar
+                    img.img-circle(src='img/avatar2.jpg', alt='Avatar')
+                  span.name Megan Abott
+              li
+                a(href='#')
+                  span.status.disable
+                  span.avatar
+                    img.img-circle(src='img/avatar3.jpg', alt='Avatar')
+                  span.name Kate Ross
+              li
+                a(href='#')
+                  span.status.active
+                  span.avatar
+                    img.img-circle(src='img/avatar4.jpg', alt='Avatar')
+                  span.name Julie Blank
+              li
+                a(href='#')
+                  span.status
+                  span.avatar
+                    img.img-circle(src='img/avatar5.jpg', alt='Avatar')
+                  span.name Jane Sanders
+              li
+                a(href='#') View all users
+          #messages.tab-pane
+            ul.messages-list
+              li
+                a(href='#')
+                  .avatar
+                    img.img-circle(src='img/avatar.jpg', alt='Avatar')
+                  span.name Łukasz Holeczek
+                  span.date 25/6/2013
+                  span.title Custom Bootstrap design for new client
+              li
+                a(href='#')
+                  .avatar
+                    img.img-circle(src='img/avatar2.jpg', alt='Avatar')
+                  span.name Megan Abott
+                  span.date 25/6/2013
+                  span.title Custom Bootstrap design for new client
+              li
+                a(href='#')
+                  .avatar
+                    img.img-circle(src='img/avatar3.jpg', alt='Avatar')
+                  span.name Kate Ross
+                  span.date 25/6/2013
+                  span.title Custom Bootstrap design for new client
+              li
+                a(href='#')
+                  .avatar
+                    img.img-circle(src='img/avatar4.jpg', alt='Avatar')
+                  span.name Julie Blank
+                  span.date 25/6/2013
+                  span.title Custom Bootstrap design for new client
+              li
+                a(href='#')
+                  .avatar
+                    img.img-circle(src='img/avatar5.jpg', alt='Avatar')
+                  span.name Jane Sanders
+                  span.date 25/6/2013
+                  span.title Custom Bootstrap design for new client
+              li
+                a(href='#') View all messages
+      //
+         end: Widgets Area
+      a#widgets-area-button.hidden-tablet.hidden-phone.open
+        i.fa-icon-reorder
+    //
+      /fluid-row
+    #myModal.modal.hide.fade
+      .modal-header
+        button.close(type='button', data-dismiss='modal') ×
+        h3 Settings
+      .modal-body
+        p Here settings can be configured...
+      .modal-footer
+        a.btn(href='#', data-dismiss='modal') Close
+        a.btn.btn-primary(href='#') Save changes
+    .clearfix
+    footer
+      p
+        span(style='text-align: left; float: left;')
+          | © 2013
+          a(href='http://bootstrapmaster.com', alt='Twitter Bootstrap Themes') creativeLabs
+        span.hidden-phone(style='text-align: right; float: right;')
+          | Powered by:
+          a(href='http://admintemplates.co', alt='Bootstrap Admin Templates') ACME Dashboard
+
+include footer.jade
+script(src="/socket.io/socket.io.js")
+script(src='/js/timeago.js')
+script(src='/js/jquery.dotdotdot.min.js')
+script(src="/js/site.js")
