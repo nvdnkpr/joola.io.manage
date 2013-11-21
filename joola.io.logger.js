@@ -82,6 +82,7 @@ app.use(express.logger(function (req, res) {
 //Routes
 app.get('/', router.index);
 app.get('/logger', router.logger);
+app.get('/configure', router.configure);
 app.post('/save', router.save);
 
 //Service Start/Stop & Control Port

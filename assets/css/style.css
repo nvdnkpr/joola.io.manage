@@ -3115,3 +3115,34 @@ ul.progress-bars li .percent {
 .ghostdiv {
   padding:10px 10px;
 }
+
+.leftSide {
+  width:49%;
+  display:inline-block;
+  vertical-align:top;
+}
+
+.rightSide {
+  width:49%;
+  display:inline-block;
+  vertical-align:top;
+}
+
+#nextCacheTime {
+  width: 180px;
+  height: 115px;
+}
+
+#cacheHitPct {
+  width: 180px;
+  height: 115px;
+}
+
+
+#actionDonut {
+  width:380px;
+  height:280px;
+}
+
+
+.buttonSection { margin: 20px 10px 10px 10px }

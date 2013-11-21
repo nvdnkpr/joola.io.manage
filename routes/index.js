@@ -20,6 +20,10 @@ exports.logger = function (req, res) {
   res.render('logger');
 };
 
+exports.configure = function(req, res) {
+  res.render('configure');
+}
+
 exports.save = function (req, res) {
   var document = req.body;
 

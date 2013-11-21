@@ -1,105 +1,11 @@
 include head.jade
 body
-
   include navbar.jade
-
   .container-fluid
     .row-fluid
-
-      #sidebar-left.span1
-        .nav-collapse.sidebar-nav
-          ul.nav.nav-tabs.nav-stacked.main-menu
-            li
-              a(href='index.html')
-                i.fa-icon-bar-chart
-                span.hidden-tablet  Dashboard
-            li
-              a(href='infrastructure.html')
-                i.fa-icon-hdd
-                span.hidden-tablet  Infrastructure
-            li
-              a(href='messages.html')
-                i.fa-icon-envelope
-                span.hidden-tablet  Messages
-            li
-              a(href='tasks.html')
-                i.fa-icon-tasks
-                span.hidden-tablet  Tasks
-            li
-              a(href='ui.html')
-                i.fa-icon-eye-open
-                span.hidden-tablet  UI Features
-            li
-              a(href='widgets.html')
-                i.fa-icon-dashboard
-                span.hidden-tablet  Widgets
-            li
-              a.dropmenu(href='#')
-                i.fa-icon-folder-close-alt
-                span.hidden-tablet  Dropdown
-              ul
-                li
-                  a.submenu(href='submenu1.html')
-                    i.fa-icon-file-alt
-                    span.hidden-tablet  Sub Menu 1
-                li
-                  a.submenu(href='submenu2.html')
-                    i.fa-icon-file-alt
-                    span.hidden-tablet  Sub Menu 2
-                li
-                  a.submenu(href='submenu3.html')
-                    i.fa-icon-file-alt
-                    span.hidden-tablet  Sub Menu 3
-            li
-              a(href='form.html')
-                i.fa-icon-edit
-                span.hidden-tablet  Forms
-            li
-              a(href='chart.html')
-                i.fa-icon-list-alt
-                span.hidden-tablet  Charts
-            li
-              a(href='typography.html')
-                i.fa-icon-font
-                span.hidden-tablet  Typography
-            li
-              a(href='gallery.html')
-                i.fa-icon-picture
-                span.hidden-tablet  Gallery
-            li
-              a(href='table.html')
-                i.fa-icon-align-justify
-                span.hidden-tablet  Tables
-            li
-              a(href='calendar.html')
-                i.fa-icon-calendar
-                span.hidden-tablet  Calendar
-            li
-              a(href='file-manager.html')
-                i.fa-icon-folder-open
-                span.hidden-tablet  File Manager
-            li
-              a(href='icon.html')
-                i.fa-icon-star
-                span.hidden-tablet  Icons
-            li
-              a(href='login.html')
-                i.fa-icon-lock
-                span.hidden-tablet  Login Page
-      a#main-menu-toggle.hidden-phone.open
-        i.fa-icon-reorder
-
-      noscript
-        .alert.alert-block.span11
-          h4.alert-heading Warning!
-          p
-            | You need to have
-            a(href='http://en.wikipedia.org/wiki/JavaScript', target='_blank') JavaScript
-            | enabled to use this site.
-
+      include sidebar.jade
       #content.span11
         .row-fluid
-
         .row-fluid
           #stats-chart2.span12(style='height: 300px; overflow: hidden;')
         hr
@@ -167,57 +73,52 @@ body
             h2
               span.glyphicons.pie_chart
                 i
-              | Browsers
+              | ACTIONS
             hr
             .content
-              .browserStat.big
-                img(src='img/browser-chrome-big.png', alt='Chrome')
-                span 34%
-              .browserStat.big
-                img(src='img/browser-firefox-big.png', alt='Firefox')
-                span 34%
-              .browserStat
-                img(src='img/browser-ie.png', alt='Internet Explorer')
-                span 34%
-              .browserStat
-                img(src='img/browser-safari.png', alt='Safari')
-                span 34%
-              .browserStat
-                img(src='img/browser-opera.png', alt='Opera')
-                span 34%
+              div#actionDonut
+              //
+                .browserStat.big
+                  img(src='img/browser-chrome-big.png', alt='Chrome')
+                  span 34%
+                .browserStat.big
+                  img(src='img/browser-firefox-big.png', alt='Firefox')
+                  span 34%
+                .browserStat
+                  img(src='img/browser-ie.png', alt='Internet Explorer')
+                  span 34%
+                .browserStat
+                  img(src='img/browser-safari.png', alt='Safari')
+                  span 34%
+                .browserStat
+                  img(src='img/browser-opera.png', alt='Opera')
+                  span 34%
           .widget.span4(ontablet='span6', ondesktop='span4')
             h2
               span.glyphicons.charts
                 i
-              | Weekly Stat
+              | CACHE 
+              span.label.label-warning Building
             hr
             .content
-              .sparkLineStats
-                ul.unstyled
-                  li
-                    span.sparkLineStats3
-                    | Pageviews:
-                    span.number 781
-                  li
-                    span.sparkLineStats4
-                    | Pages / Visit:
-                    span.number 2,19
-                  li
-                    span.sparkLineStats5
-                    | Avg. Visit Duration:
-                    span.number 00:02:58
-                  li
-                    span.sparkLineStats6
-                    | Bounce Rate:
-                    span.number 59,83%
-                  li
-                    span.sparkLineStats7
-                    | % New Visits:
-                    span.number 70,79%
-                  li
-                    span.sparkLineStats8
-                    | % Returning Visitor:
-                    span.number 29,21%
+              .leftSide
+                div#nextCacheTime
+                div#cacheHitPct
+              .rightSide(style="margin-top:10px;")
+                .sparkLineStats
+                  ul.unstyled
+                    li
+                      span.sparkLineStats3
+                      | Size: 
+                      span.number 2GB
+                    li
+                      span.sparkLineStats4
+                      | Records: 
+                      span.number 21,081
+                    li
+                      span.sparkLineStats4
+                      | Run time: 
+                      span.number 30ms
 
         hr
         .row-fluid
@@ -366,10 +267,8 @@ body
                   span.title Custom Bootstrap design for new client
               li
                 a(href='#') View all messages
-
       a#widgets-area-button.hidden-tablet.hidden-phone.open
         i.fa-icon-reorder
-
     #myModal.modal.hide.fade
       .modal-header
         button.close(type='button', data-dismiss='modal') ×
