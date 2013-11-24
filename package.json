@@ -12,7 +12,7 @@
   },
   "bugs": "https://joolatech.atlassian.net/browse/JARVIS",
   "contributors": [
-    { 
+    {
       "name": "Itay Weinberger",
       "email": "itay@joo.la",
       "url": "http://joo.la"
@@ -22,7 +22,7 @@
       "email": "or@joo.la",
       "url": "http://joo.la"
     }
-  ], 
+  ],
   "scripts": {
     "test": "make test",
     "debug": "npm-inspector && npm start && open \"http://http://127.0.0.1:8080/debug?port=5858\"",
@@ -38,11 +38,13 @@
   "bin": "./joola.io.logger.js",
   "main": "./lib/joola.io.logger.js",
   "dependencies": {
-    "joola.io.auth":"3.x",
-    "joola.io.status":"3.x",
+    "joola.io.auth": "3.x",
+    "joola.io.status": "3.x",
+
+    "nconf-redis": "https://github.com/itayw/nconf-redis/tarball/develop",
 
     "express": "3.x",
-    "socket.io":"x",
+    "socket.io": "x",
     "node-controlport": "0.x",
     "jade": "0.x",
     "path": "*",
@@ -54,7 +56,7 @@
     "process": "*",
     "nconf": "*",
 
-    "mongodb":"*"    
+    "mongodb": "*"
   },
   "devDependencies": {
     "closurecompiler": "*",
@@ -68,7 +70,7 @@
     "sinon-chai": "2.x",
     "blanket": "1.x",
     "jshint": "2.x",
-    "supertest":"x"
+    "supertest": "x"
   },
   "license": "GPL-3.0"
 }
