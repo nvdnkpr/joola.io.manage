@@ -9,12 +9,12 @@
  *  @license GPL-3.0+ <http://spdx.org/licenses/GPL-3.0+>
  */
 
-global.logger_component = 'joola.io.logger';
+global.__name = __name = 'joola.io.manage';
 
 var
-  logger = require('./lib/joola.io.logger'),
-  mongo = require('./lib/joola.io.logger/mongo'),
-  router = require('./routes/index'),
+  logger = require('joola.io.logger'),
+//mongo = require('./lib/joola.io.logger/mongo'),
+  router = require('./lib/routes/index'),
 
   fs = require('fs'),
   nconf = require('nconf'),
@@ -22,271 +22,235 @@ var
   http = require('http'),
   https = require('https'),
   express = require('express'),
-  dgram = require("dgram");
+
+  Dispatch = require('./lib/dispatch'),
+  dgram = require('dgram');
+
+require('nconf-redis');
+
+var _ = global._ = require('underscore');
+
+nconf.argv()
+  .env();
+
+var options_redis = {
+  host: 'localhost',
+  port: 6379,
+  DB: 0
+};
+var options_server = {
+  port: 40008,
+  securePort: null
+};
+
+nconf.use('redis', { host: options_redis.host, port: options_redis.port, ttl: 0, db: options_redis.DB });
 
 var app = global.app = express();
-var io;
 var udpserver = dgram.createSocket("udp4");
-
-//test
+var io;
 
 var joola = {};
 global.joola = joola;
+
 joola.logger = logger;
 joola.io = io;
-//Configuration
-nconf.argv()
-  .env()
-  .file({ file: nconf.get('conf') || './config/joola.io.logger.json' });
-
-var port = nconf.get('server:port');
-var secureport = nconf.get('server:securePort');
-
-if (!nconf.get('version')) {
-  throw new Error('Failed to load configuration.');
-}
-
 joola.config = nconf;
+joola.redis = joola.config.stores.redis.redis;
+joola.dispatch = new Dispatch({});
+joola.common = require('./lib/common');
 
+joola.redis.incr('stats:' + __name + ':appStart');
+joola.redis.on('error', function (err) {
+  console.log('ERROR');
+});
+
+/*
+joola.redis.keys('locks:channels:once:*', function (err, list) {
+  list.forEach(function (lock) {
+    joola.redis.del(lock);
+  })
+});
+*/
+
+nconf.set('version', require('./package.json').version, function (err) {
+  if (err)
+    throw err;
+
+  nconf.get('version', function (err, value) {
+    //  console.log('version', value);
+  });
+});
+//console.log('before save redis');
+nconf.set('redis', options_redis, function (err) {
+  //console.log('saved redis');
+  if (err)
+    throw err;
+  nconf.get('redis', function (err, value) {
+    // console.log('redis', value);
+  });
+});
+nconf.set('server', options_server);
+var port, secureport;
+
+var loadConfiguration = function (callback) {
+  joola.config.get('version', function (err, value) {
+    if (err)
+      throw err;
+
+    if (!value)
+      throw new Error('Failed to load configuration.');
+
+    //console.log('Redis configuration stored valid.');
+    joola.config.get('server:port', function (err, value) {
+      if (err)
+        throw err;
+
+      //console.log('server:port', value);
+      port = value;
+
+      joola.config.get('server:securePort', function (err, value) {
+        if (err)
+          throw err;
+        secureport = value;
+        return callback(null);
+      });
+    });
+  });
+};
+
+loadConfiguration(function () {
+  //console.log('config loaded');
 //Application settings
-app.set('views', __dirname + '/views');
-app.set('view engine', 'jade');
-app.use(express.favicon('public/assets/ico/favicon.ico'));
-app.use(express.compress());
-app.use(express.bodyParser());
-app.use(express.methodOverride());
-app.use(express.cookieParser());
-app.use(express.session({
-  secret: 'what-should-be-the-secret?',
-  maxAge: new Date(Date.now() + 3600000), //1 Hour
-  expires: new Date(Date.now() + 3600000) //1 Hour
-}));
-app.use(require('joola.io.status')({baseDir:__dirname}));
-app.use(express.static(path.join(__dirname, 'assets')));
+  app.set('views', __dirname + '/views');
+  app.set('view engine', 'jade');
+  app.use(express.favicon('public/assets/ico/favicon.ico'));
+  app.use(express.compress());
+  app.use(express.bodyParser());
+  app.use(express.methodOverride());
+  app.use(express.cookieParser());
+  app.use(express.session({
+    secret: 'what-should-be-the-secret?',
+    maxAge: new Date(Date.now() + 3600000), //1 Hour
+    expires: new Date(Date.now() + 3600000) //1 Hour
+  }));
+  app.use(require('joola.io.status')({baseDir: __dirname}));
+  app.use(express.static(path.join(__dirname, 'public')));
 
 //Logger
 
-/*
- var winstonStream = {
- write: function (message, encoding) {
- joola.logger.info(message);
- }
- };
- app.use(express.logger((global.test ? function (req, res) {
- } : {stream: winstonStream})));
- */
+  /*
+   var winstonStream = {
+   write: function (message, encoding) {
+   joola.logger.info(message);
+   }
+   };
+   app.use(express.logger((global.test ? function (req, res) {
+   } : {stream: winstonStream})));
+   */
 
-app.use(require('joola.io.auth')(joola.config.get('auth')));
-app.use(express.logger(function (req, res) {
-}));
+  //app.use(require('joola.io.auth')(joola.config.get('auth')));
+  app.use(express.logger(function (req, res) {
+  }));
 //Routes
-app.get('/', router.index);
-app.get('/logger', router.logger);
-app.get('/configure', router.configure);
-app.post('/save', router.save);
+//app.get('/', router.index);
+//app.post('/save', router.save);
 
 //Service Start/Stop & Control Port
-var status = '';
-var httpServer, httpsServer;
+  var status = '';
+  var httpServer, httpsServer;
 
-var fetchLog = function (lastTimestamp, callback) {
-  mongo.open(joola.config.get('mongo:url'), function (err, db) {
-    if (err) {
+  var startHTTP = function (callback) {
+    var result = {};
+    try {
+      var _httpServer = http.createServer(app).listen(port,function (err) {
+        if (err) {
+          result.status = 'Failed: ' + ex.message;
+          return callback(result);
+        }
+        status = 'Running';
+        joola.logger.info('joola.io logging HTTP server listening on port ' + port);
+        result.status = 'Success';
+        httpServer = _httpServer;
+        return callback(result);
+      }).on('error',function (ex) {
+          result.status = 'Failed: ' + ex.message;
+          return callback(result);
+        }).on('close', function () {
+          status = 'Stopped';
+          joola.logger.warn('joola.io logging HTTP server listening on port ' + port.toString() + ' received a CLOSE command.');
+        });
+    }
+    catch (ex) {
+      result.status = 'Failed: ' + ex.message;
+      console.log(result.status);
+      console.log(ex.stack);
+      return callback(result);
+    }
+    return null;
+  };
+
+  var startSocketIO = function (callback) {
+    joola.io = io = require('socket.io').listen(httpServer);
+    io.set('log level', 0);
+    io.sockets.on('connection', function (socket) {
+      socket.on('last-log-fetch', function (data) {
+        fetchLog(data, function (err, data) {
+          if (err)
+            return socket.emit('last-log', {});
+
+          return socket.emit('last-log', data);
+        });
+      });
+    });
+    return callback();
+  };
+
+  var setupRoutes = function (callback) {
+    try {
+      var
+        index = require('./lib/routes/index');
+
+      app.configure(function () {
+        app.use(function (req, res, next) {
+          res.setHeader('Access-Control-Allow-Origin', '*');
+          res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE, OPTIONS');
+          res.setHeader('Access-Control-Allow-Headers', 'joola-token, Content-Type, origin');
+          res.setHeader('Access-Control-Max-Age', '86400');
+          res.setHeader('X-Powered-By', 'joola.io');
+
+          return next();
+        });
+      });
+
+      app.get('/', index.index);
+      app.get('/:resource', index.route);
+      app.get('/:resource/:action', index.route);
+      app.use(express.static(path.join(__dirname, 'public')));
+      app.use(app.router);
+
+      //TODO: Setup 500 and 404 routes
+
+
       return callback(null);
     }
+    catch (err) {
+      joola.logger.error('setupRoutes: ' + err);
+      return callback(err);
+    }
+  };
 
-    var collectionName = 'generic';
-    mongo.ensureCollection(collectionName, db, function (err, collection) {
-      if (err)
-        return callback(err);
-      //console.log('Collection ensured');
+  var setupSubscribers = function (callback) {
+    require('./lib/subscribers/index');
 
-      var filter = {};
-      if (lastTimestamp.lastTimestamp)
-        filter._timestamp = {$gt: new Date(lastTimestamp.lastTimestamp)};
-      mongo.find(collection, filter, function (err, data) {
-        if (err)
-          return callback(err);
-        mongo.close(db, function () {
-          return callback(null, data);
+    return callback(null);
+  };
+
+  setupRoutes(function () {
+    setupSubscribers(function () {
+      startHTTP(function () {
+        startSocketIO(function () {
         });
       });
-    });
-
-    return true;
-  });
-};
-
-var startHTTP = function (callback) {
-  var result = {};
-  try {
-    var _httpServer = http.createServer(app).listen(port,function (err) {
-      if (err) {
-        result.status = 'Failed: ' + ex.message;
-        return callback(result);
-      }
-      status = 'Running';
-      joola.logger.info('joola.io logging HTTP server listening on port ' + port);
-      result.status = 'Success';
-      httpServer = _httpServer;
-      return callback(result);
-    }).on('error',function (ex) {
-        result.status = 'Failed: ' + ex.message;
-        return callback(result);
-      }).on('close', function () {
-        status = 'Stopped';
-        joola.logger.warn('joola.io logging HTTP server listening on port ' + port.toString() + ' received a CLOSE command.');
-      });
-  }
-  catch (ex) {
-    result.status = 'Failed: ' + ex.message;
-    console.log(result.status);
-    console.log(ex.stack);
-    return callback(result);
-  }
-  return null;
-};
-
-var startSocketIO = function (callback) {
-  joola.io = io = require('socket.io').listen(httpServer);
-  io.set('log level', 0);
-  io.sockets.on('connection', function (socket) {
-    socket.on('last-log-fetch', function (data) {
-      fetchLog(data, function (err, data) {
-        if (err)
-          return socket.emit('last-log', {});
-
-        return socket.emit('last-log', data);
-      });
-    });
-  });
-  return callback();
-};
-
-var startUDP = function (callback) {
-  udpserver.on("error", function (err) {
-    console.log("server error:\n" + err.stack);
-    udpserver.close();
-    callback(err);
-  });
-
-  udpserver.on("close", function () {
-    console.log("server closed:\n");
-    callback(err);
-  });
-
-  udpserver.on("message", function (msg, rinfo) {
-    var document = JSON.parse(msg);
-    router.saveUDP(document, function () {
-    });
-  });
-
-  udpserver.on("listening", function () {
-    var address = udpserver.address();
-    console.log("server listening " +
-      address.address + ":" + address.port);
-    callback(null);
-  });
-
-  udpserver.bind(joola.config.get('server:udpport'));
-};
-
-var startHTTPS = function (callback) {
-  var result = {};
-  try {
-    var secureOptions = {
-      key: fs.readFileSync(nconf.get('server:keyFile')),
-      cert: fs.readFileSync(nconf.get('server:certFile'))
-    };
-    var _httpsServer = https.createServer(secureOptions, app).listen(secureport,function (err) {
-      if (err) {
-        result.status = 'Failed: ' + ex.message;
-        return callback(result);
-      }
-      joola.logger.info('joola.io logging HTTPS server listening on port ' + secureport);
-      result.status = 'Success';
-      httpsServer = _httpsServer;
-      return callback(result);
-    }).on('error',function (ex) {
-        result.status = 'Failed: ' + ex.message;
-        return callback(result);
-      }).on('close', function () {
-        joola.logger.warn('Jjoola.io logging HTTPS server listening on port ' + secureport.toString() + ' received a CLOSE command.');
-      });
-  }
-  catch (ex) {
-    result.status = 'Failed: ' + ex.message;
-    console.log(result.status);
-    console.log(ex.stack);
-    return callback(result);
-  }
-  return null;
-};
-
-startHTTP(function () {
-  startSocketIO(function () {
-    startUDP(function () {
-      if (nconf.get('server:secure') === true)
-        startHTTPS(function () {
-        });
     });
   });
 });
-
-//Control Port
-if (nconf.get('server:controlPort:enabled') === true) {
-  var cp = require('node-controlport');
-  var cp_endpoints = [];
-
-  cp_endpoints.push({
-    endpoint: 'status',
-    exec: function (callback) {
-      callback({status: status, pid: process.pid});
-    }
-  });
-
-  cp_endpoints.push({
-      endpoint: 'start',
-      exec: function (callback) {
-        if (nconf.get('server:secure') === true) {
-          startHTTP(function () {
-            startSocketIO(function () {
-              startUDP(function () {
-                startHTTPS(callback);
-              });
-            });
-          });
-        }
-        else {
-          startHTTP(callback);
-        }
-      }
-    }
-  );
-
-  cp_endpoints.push({
-    endpoint: 'stop',
-    exec: function (callback) {
-      var result = {};
-      result.status = 'Success';
-      try {
-        httpServer.close();
-        if (nconf.get('server:secure') === true)
-          httpsServer.close();
-
-        if (nconf.get('server:controlPort:exitOnStop') === true)
-          process.exit(0);
-      }
-      catch (ex) {
-        console.log(ex);
-        result.status = 'Failed: ' + ex.message;
-        return callback(result);
-      }
-      return callback(result);
-    }
-  });
-
-  cp.start(nconf.get('server:controlPort:port'), cp_endpoints, function () {
-    joola.logger.info('joola.io logging control port listening on port ' + nconf.get('server:controlPort:port'));
-  });
-}
