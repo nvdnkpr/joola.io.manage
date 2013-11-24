@@ -142,8 +142,6 @@ loadConfiguration(function () {
    expires: new Date(Date.now() + 3600000) //1 Hour
    }));*/
   app.use(require('joola.io.status')({baseDir: __dirname}));
-  app.use(express.static(path.join(__dirname, 'public')));
-
 
 //Logger
 
@@ -238,13 +236,13 @@ loadConfiguration(function () {
           return next();
         });
       });
-
+      app.use(express.static(path.join(__dirname,'assets')));
       app.get('/', index.index);
       app.get('/:resource', index.route);
       app.get('/:resource/:action', index.route);
-      app.use(express.static(path.join(__dirname, 'public')));
+      
       app.use(app.router);
-
+      
       //TODO: Setup 500 and 404 routes
 
 
