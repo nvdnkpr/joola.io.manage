@@ -238,6 +238,8 @@ loadConfiguration(function () {
       });
       app.use(express.static(path.join(__dirname,'assets')));
       app.get('/', index.index);
+      app.get('/configure', index.configure);
+      app.get('/logger', index.logger);
       app.get('/:resource', index.route);
       app.get('/:resource/:action', index.route);
       
