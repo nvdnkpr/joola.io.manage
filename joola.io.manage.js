@@ -16,6 +16,8 @@ var
 //mongo = require('./lib/joola.io.logger/mongo'),
   router = require('./lib/routes/index'),
 
+  domain = require('domain'),
+
   fs = require('fs'),
   nconf = require('nconf'),
   path = require('path'),
@@ -59,18 +61,24 @@ joola.redis = joola.config.stores.redis.redis;
 joola.dispatch = new Dispatch({});
 joola.common = require('./lib/common');
 
+joola.domain = process.domain = domain.create();
+joola.domain.on('error', function (err) {
+  joola.logger.error('Domain error! ' + err.message);
+  joola.logger.debug(err.stack);
+});
+
 joola.redis.incr('stats:' + __name + ':appStart');
 joola.redis.on('error', function (err) {
-  console.log('ERROR');
+  console.log('ERROR', err);
 });
 
 /*
-joola.redis.keys('locks:channels:once:*', function (err, list) {
-  list.forEach(function (lock) {
-    joola.redis.del(lock);
-  })
-});
-*/
+ joola.redis.keys('locks:channels:once:*', function (err, list) {
+ list.forEach(function (lock) {
+ joola.redis.del(lock);
+ })
+ });
+ */
 
 nconf.set('version', require('./package.json').version, function (err) {
   if (err)
@@ -128,13 +136,14 @@ loadConfiguration(function () {
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(express.cookieParser());
-  app.use(express.session({
-    secret: 'what-should-be-the-secret?',
-    maxAge: new Date(Date.now() + 3600000), //1 Hour
-    expires: new Date(Date.now() + 3600000) //1 Hour
-  }));
+  /*app.use(express.session({
+   secret: 'what-should-be-the-secret?',
+   maxAge: new Date(Date.now() + 3600000), //1 Hour
+   expires: new Date(Date.now() + 3600000) //1 Hour
+   }));*/
   app.use(require('joola.io.status')({baseDir: __dirname}));
   app.use(express.static(path.join(__dirname, 'public')));
+
 
 //Logger
 
@@ -182,6 +191,7 @@ loadConfiguration(function () {
     }
     catch (ex) {
       result.status = 'Failed: ' + ex.message;
+      console.log('Error1');
       console.log(result.status);
       console.log(ex.stack);
       return callback(result);
@@ -193,13 +203,20 @@ loadConfiguration(function () {
     joola.io = io = require('socket.io').listen(httpServer);
     io.set('log level', 0);
     io.sockets.on('connection', function (socket) {
-      socket.on('last-log-fetch', function (data) {
-        fetchLog(data, function (err, data) {
-          if (err)
-            return socket.emit('last-log', {});
+      socket.on('datasources/list', function (params) {
+        var req = {};
+        req.query = {};
+        req.params = params;
 
-          return socket.emit('last-log', data);
-        });
+        var res = {};
+        res.status = function (statuscode) {
+
+        };
+        res.json = function (json) {
+          return socket.emit('datasources/list:done', json);
+        };
+
+        return router.route(req, res);
       });
     });
     return callback();
