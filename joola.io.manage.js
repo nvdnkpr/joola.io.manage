@@ -199,12 +199,15 @@ loadConfiguration(function () {
 
   var startSocketIO = function (callback) {
     joola.io = io = require('socket.io').listen(httpServer);
-    io.set('log level', 0);
+    //io.set('log level', 0);
     io.sockets.on('connection', function (socket) {
       socket.on('datasources/list', function (params) {
         var req = {};
         req.query = {};
-        req.params = params;
+        req.params = params || {};
+        req.params.resource = 'datasources';
+        req.params.action = 'list';
+        req.url = '';
 
         var res = {};
         res.status = function (statuscode) {
@@ -236,15 +239,15 @@ loadConfiguration(function () {
           return next();
         });
       });
-      app.use(express.static(path.join(__dirname,'assets')));
+      app.use(express.static(path.join(__dirname, 'assets')));
       app.get('/', index.index);
       app.get('/configure', index.configure);
       app.get('/logger', index.logger);
       app.get('/:resource', index.route);
       app.get('/:resource/:action', index.route);
-      
+
       app.use(app.router);
-      
+
       //TODO: Setup 500 and 404 routes
 
 
