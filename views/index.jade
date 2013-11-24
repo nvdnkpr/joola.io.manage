@@ -1,19 +1,65 @@
 include head.jade
 body
   include navbar.jade
-  .container-fluid
-    .row-fluid
+  .container
+    .row
       include sidebar.jade
-      #content.span11
-        .row-fluid
-        .row-fluid
-          #stats-chart2.span12(style='height: 300px; overflow: hidden;')
+      #content.col-sm-11
+        .row
+          .stats-date.col-md-3
+            div Monthly Statistics
+            .range 02/10/2012 - 02/11/2012
+          .stats.col-md-9
+            .stat
+              .left
+                .number.green 1.324.996
+                .title
+                  span.color.green
+                  | Visits
+              .right
+                .arrow
+                  img(src='/img/uparrow.png')
+                .percent +13%
+            .stat
+              .left
+                .number.yellow 12.894.765
+                .title
+                  span.color.yellow
+                  | Pageviews
+              .right
+                .arrow
+                  img(src='/img/uparrow.png')
+                .percent +17%
+            .stat
+              .left
+                .number.blue 432.980
+                .title
+                  span.color.blue
+                  | Visitors
+              .right
+                .arrow
+                  img(src='/img/downarrow.png')
+                .percent -33%
+            .stat
+              .left
+                .number.red 11.324
+                .title
+                  span.color.red
+                  | New Visitors
+              .right
+                .arrow
+                  img(src='/img/uparrow.png')
+                .percent +3%
+
+        .row
+          .col-xs-12(style="overflow:hidden")
+            #stats-chart2(style='height: 300px;')
+
         hr
-        .row-fluid
-          .widget.span5(ontablet='span12', ondesktop='span5')
+        .row
+          .widget.col-md-5.col-sm-12
             h2
-              span.glyphicons.globe
-                i
+              i.glyphicons.globe
               | Demographics
             hr
             .content
@@ -69,7 +115,7 @@ body
                       span 1%
                   .title N/A
 
-          .widget.span3.noMargin(ontablet='span6', ondesktop='span3')
+          .widget.col-md-3.col-sm-6
             h2
               span.glyphicons.pie_chart
                 i
@@ -77,28 +123,12 @@ body
             hr
             .content
               div#actionDonut
-              //
-                .browserStat.big
-                  img(src='img/browser-chrome-big.png', alt='Chrome')
-                  span 34%
-                .browserStat.big
-                  img(src='img/browser-firefox-big.png', alt='Firefox')
-                  span 34%
-                .browserStat
-                  img(src='img/browser-ie.png', alt='Internet Explorer')
-                  span 34%
-                .browserStat
-                  img(src='img/browser-safari.png', alt='Safari')
-                  span 34%
-                .browserStat
-                  img(src='img/browser-opera.png', alt='Opera')
-                  span 34%
-          .widget.span4(ontablet='span6', ondesktop='span4')
+
+          .widget.col-md-4.col-sm-6
             h2
               span.glyphicons.charts
                 i
-              | CACHE 
-              span.label.label-warning Building
+              | CACHE
             hr
             .content
               .leftSide
@@ -121,39 +151,39 @@ body
                       span.number 30ms
 
         hr
-        .row-fluid
-          .widget.span6(ontablet='span6', ondesktop='span6')
+        .row
+          .widget.col-sm-6(style="overflow:hidden")
             h2
-              span.glyphicons.facebook
+              span.social.facebook
                 i
               | Facebook Fans
             hr
             .content
-              #facebookChart(style='height: 300px; overflow: hidden;')
+              #facebookChart(style='height: 300px;')
 
-          .widget.span6(ontablet='span6', ondesktop='span6')
+          .widget.col-sm-6(style="overflow:hidden")
             h2
-              span.glyphicons.twitter
+              span.social.twitter
                 i
               | Twitter Followers
             hr
             .content
-              #twitterChart(style='height: 300px; overflow: hidden;')
+              #twitterChart(style='height: 300px;')
 
-      #widgets-area.span2.hidden-tablet.hidden-phone
+      #widgets-area.col-sm-2
         ul#myTab.nav.tab-menu.nav-tabs
           li.active
-            a(href='#charts')
-              i.fa-icon-bar-chart
+            a(href='index.html#charts')
+              i.fa.fa-bar-chart-o
           li
-            a(href='#users')
-              i.fa-icon-group
+            a(href='index.html#users')
+              i.fa.fa-group
           li
-            a(href='#messages')
-              i.fa-icon-envelope
+            a(href='index.html#messages')
+              i.fa.fa-envelope
           li
-            a#close-widgets-area(href='#')
-              i.fa-icon-signin
+            a#close-widgets-area(href='index.html#')
+              i.fa.fa-sign-in
         #myTabContent.tab-content
           #charts.tab-pane.active
             .bar-stat
@@ -197,94 +227,100 @@ body
           #users.tab-pane
             ul.users-list
               li
-                a(href='#')
+                a(href='index.html#')
                   span.status.active
                   span.avatar
-                    img.img-circle(src='img/avatar.jpg', alt='Avatar')
+                    img.img-circle(src='/img/avatar.jpg', alt='Avatar')
                   span.name Łukasz Holeczek
               li
-                a(href='#')
+                a(href='index.html#')
                   span.status.busy
                   span.avatar
-                    img.img-circle(src='img/avatar2.jpg', alt='Avatar')
+                    img.img-circle(src='/img/avatar2.jpg', alt='Avatar')
                   span.name Megan Abott
               li
-                a(href='#')
+                a(href='index.html#')
                   span.status.disable
                   span.avatar
-                    img.img-circle(src='img/avatar3.jpg', alt='Avatar')
+                    img.img-circle(src='/img/avatar3.jpg', alt='Avatar')
                   span.name Kate Ross
               li
-                a(href='#')
+                a(href='index.html#')
                   span.status.active
                   span.avatar
-                    img.img-circle(src='img/avatar4.jpg', alt='Avatar')
+                    img.img-circle(src='/img/avatar4.jpg', alt='Avatar')
                   span.name Julie Blank
               li
-                a(href='#')
+                a(href='index.html#')
                   span.status
                   span.avatar
-                    img.img-circle(src='img/avatar5.jpg', alt='Avatar')
+                    img.img-circle(src='/img/avatar5.jpg', alt='Avatar')
                   span.name Jane Sanders
               li
-                a(href='#') View all users
+                a(href='index.html#') View all users
           #messages.tab-pane
             ul.messages-list
               li
-                a(href='#')
+                a(href='index.html#')
                   .avatar
-                    img.img-circle(src='img/avatar.jpg', alt='Avatar')
+                    img.img-circle(src='/img/avatar.jpg', alt='Avatar')
                   span.name Łukasz Holeczek
                   span.date 25/6/2013
                   span.title Custom Bootstrap design for new client
               li
-                a(href='#')
+                a(href='index.html#')
                   .avatar
-                    img.img-circle(src='img/avatar2.jpg', alt='Avatar')
+                    img.img-circle(src='/img/avatar2.jpg', alt='Avatar')
                   span.name Megan Abott
                   span.date 25/6/2013
                   span.title Custom Bootstrap design for new client
               li
-                a(href='#')
+                a(href='index.html#')
                   .avatar
-                    img.img-circle(src='img/avatar3.jpg', alt='Avatar')
+                    img.img-circle(src='/img/avatar3.jpg', alt='Avatar')
                   span.name Kate Ross
                   span.date 25/6/2013
                   span.title Custom Bootstrap design for new client
               li
-                a(href='#')
+                a(href='index.html#')
                   .avatar
-                    img.img-circle(src='img/avatar4.jpg', alt='Avatar')
+                    img.img-circle(src='/img/avatar4.jpg', alt='Avatar')
                   span.name Julie Blank
                   span.date 25/6/2013
                   span.title Custom Bootstrap design for new client
               li
-                a(href='#')
+                a(href='index.html#')
                   .avatar
-                    img.img-circle(src='img/avatar5.jpg', alt='Avatar')
+                    img.img-circle(src='/img/avatar5.jpg', alt='Avatar')
                   span.name Jane Sanders
                   span.date 25/6/2013
                   span.title Custom Bootstrap design for new client
               li
-                a(href='#') View all messages
-      a#widgets-area-button.hidden-tablet.hidden-phone.open
-        i.fa-icon-reorder
-    #myModal.modal.hide.fade
-      .modal-header
-        button.close(type='button', data-dismiss='modal') ×
-        h3 Settings
-      .modal-body
-        p Here settings can be configured...
-      .modal-footer
-        a.btn(href='#', data-dismiss='modal') Close
-        a.btn.btn-primary(href='#') Save changes
-    .clearfix
-    footer
-      p
-        span(style='text-align: left; float: left;')
-          | © 2013
-          a(href='http://bootstrapmaster.com', alt='Twitter Bootstrap Themes') creativeLabs
-        span.hidden-phone(style='text-align: right; float: right;')
-          | Powered by:
-          a(href='http://admintemplates.co', alt='Bootstrap Admin Templates') ACME Dashboard
-include footer.jade
+                a(href='index.html#') View all messages
+
+      a#widgets-area-button.hidden-sm.hidden-xs.open
+        i.fa.fa-bars
+
+    #myModal.modal.fade
+      .modal-dialog
+        .modal-content
+          .modal-header
+            button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+            h4.modal-title Modal title
+          .modal-body
+            p Here settings can be configured...
+          .modal-footer
+            button.btn.btn-default(type='button', data-dismiss='modal') Close
+            button.btn.btn-primary(type='button') Save changes
+
+  .clearfix
+  footer
+    p
+      span(style='text-align: left; float: left;')
+        | © 2013 creativeLabs.
+        a(href='http://bootstrapmaster.com') Admin Templates
+        | by BootstrapMaster
+      span.hidden-phone(style='text-align: right; float: right;')
+        | Powered by:
+        a(href='http://bootstrapmaster.com/demo/acme/', alt='Bootstrap Admin Templates') ACME Dashboard
+  include footer.jade

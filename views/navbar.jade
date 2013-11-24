@@ -1,116 +1,116 @@
 .navbar
   .navbar-inner
-    .container-fluid
-      a.btn.btn-navbar(data-toggle='collapse', data-target='.top-nav.nav-collapse,.sidebar-nav.nav-collapse')
+    .container
+      button.navbar-toggle(type='button', data-toggle='collapse', data-target='.sidebar-nav.nav-collapse')
         span.icon-bar
         span.icon-bar
         span.icon-bar
-      a.brand(href='index.html')
+      a.navbar-brand(href='index.html')
         span Acme, Inc
 
       .nav-no-collapse.header-nav
         ul.nav.pull-right
-          li.dropdown.hidden-phone
-            a.btn.dropdown-toggle(data-toggle='dropdown', href='#')
-              i.halflings-icon.white.warning-sign
+          li.dropdown.hidden-xs
+            a.btn.dropdown-toggle(data-toggle='dropdown', href='index.html#')
+              i.halflings.warning-sign.white
             ul.dropdown-menu.notifications
               li
                 span.dropdown-menu-title You have 11 notifications
               li
-                a(href='#')
+                a(href='index.html#')
                   | +
-                  i.halflings-icon.white.user
+                  i.fa.fa-user
                   span.message New user registration
                   span.time 1 min
               li
-                a(href='#')
+                a(href='index.html#')
                   | +
-                  i.halflings-icon.white.comment
+                  i.fa.fa-comment-o
                   span.message New comment
                   span.time 7 min
               li
-                a(href='#')
+                a(href='index.html#')
                   | +
-                  i.halflings-icon.white.comment
+                  i.fa.fa-comment-o
                   span.message New comment
                   span.time 8 min
               li
-                a(href='#')
+                a(href='index.html#')
                   | +
-                  i.halflings-icon.white.comment
+                  i.fa.fa-comment-o
                   span.message New comment
                   span.time 16 min
               li
-                a(href='#')
+                a(href='index.html#')
                   | +
-                  i.halflings-icon.white.user
+                  i.fa.fa-user
                   span.message New user registration
                   span.time 36 min
               li
-                a(href='#')
+                a(href='index.html#')
                   | +
-                  i.halflings-icon.white.cart
+                  i.fa.fa-shopping-cart
                   span.message 2 items sold
                   span.time 1 hour
               li.warning
-                a(href='#')
+                a(href='index.html#')
                   | -
-                  i.halflings-icon.white.user
+                  i.fa.fa-user
                   span.message User deleted account
                   span.time 2 hour
               li.warning
-                a(href='#')
+                a(href='index.html#')
                   | -
-                  i.halflings-icon.white.shopping-cart
+                  i.fa.fa-shopping-cart
                   span.message Transaction was canceled
                   span.time 6 hour
               li
-                a(href='#')
+                a(href='index.html#')
                   | +
-                  i.halflings-icon.white.comment
+                  i.fa.fa-comment-o
                   span.message New comment
                   span.time yesterday
               li
-                a(href='#')
+                a(href='index.html#')
                   | +
-                  i.halflings-icon.white.user
+                  i.fa.fa-user
                   span.message New user registration
                   span.time yesterday
               li
                 a.dropdown-menu-sub-footer View all notifications
 
-          li.dropdown.hidden-phone
-            a.btn.dropdown-toggle(data-toggle='dropdown', href='#')
-              i.halflings-icon.white.tasks
+          li.dropdown.hidden-xs
+            a.btn.dropdown-toggle(data-toggle='dropdown', href='index.html#')
+              i.halflings.tasks.white
             ul.dropdown-menu.tasks
               li
                 span.dropdown-menu-title You have 17 tasks in progress
               li
-                a(href='#')
+                a(href='index.html#')
                   span.header
                     span.title iOS Development
                     span.percent
                   .taskProgress.progressSlim.progressBlue 80
               li
-                a(href='#')
+                a(href='index.html#')
                   span.header
                     span.title Android Development
                     span.percent
                   .taskProgress.progressSlim.progressBlue 47
               li
-                a(href='#')
+                a(href='index.html#')
                   span.header
                     span.title Django Project For Google
                     span.percent
                   .taskProgress.progressSlim.progressBlue 32
               li
-                a(href='#')
+                a(href='index.html#')
                   span.header
                     span.title SEO for new sites
                     span.percent
                   .taskProgress.progressSlim.progressBlue 63
               li
-                a(href='#')
+                a(href='index.html#')
                   span.header
                     span.title New blog posts
                     span.percent
@@ -118,16 +118,16 @@
               li
                 a.dropdown-menu-sub-footer View all tasks
 
-          li.dropdown.hidden-phone
-            a.btn.dropdown-toggle(data-toggle='dropdown', href='#')
-              i.halflings-icon.white.envelope
+          li.dropdown.hidden-xs
+            a.btn.dropdown-toggle(data-toggle='dropdown', href='index.html#')
+              i.halflings.envelope.white
             ul.dropdown-menu.messages
               li
                 span.dropdown-menu-title You have 9 messages
               li
-                a(href='#')
+                a(href='index.html#')
                   span.avatar
-                    img(src='img/avatar.jpg', alt='Avatar')
+                    img(src='/img/avatar.jpg', alt='Avatar')
                   span.header
                     span.from
                       | Łukasz Holeczek
@@ -136,9 +136,9 @@
                   span.message
                     | Lorem ipsum dolor sit amet consectetur adipiscing elit, et al commore
               li
-                a(href='#')
+                a(href='index.html#')
                   span.avatar
-                    img(src='img/avatar2.jpg', alt='Avatar')
+                    img(src='/img/avatar2.jpg', alt='Avatar')
                   span.header
                     span.from
                       | Megan Abott
@@ -147,9 +147,9 @@
                   span.message
                     | Lorem ipsum dolor sit amet consectetur adipiscing elit, et al commore
               li
-                a(href='#')
+                a(href='index.html#')
                   span.avatar
-                    img(src='img/avatar3.jpg', alt='Avatar')
+                    img(src='/img/avatar3.jpg', alt='Avatar')
                   span.header
                     span.from
                       | Kate Ross
@@ -158,9 +158,9 @@
                   span.message
                     | Lorem ipsum dolor sit amet consectetur adipiscing elit, et al commore
               li
-                a(href='#')
+                a(href='index.html#')
                   span.avatar
-                    img(src='img/avatar4.jpg', alt='Avatar')
+                    img(src='/img/avatar4.jpg', alt='Avatar')
                   span.header
                     span.from
                       | Julie Blank
@@ -169,9 +169,9 @@
                   span.message
                     | Lorem ipsum dolor sit amet consectetur adipiscing elit, et al commore
               li
-                a(href='#')
+                a(href='index.html#')
                   span.avatar
-                    img(src='img/avatar5.jpg', alt='Avatar')
+                    img(src='/img/avatar5.jpg', alt='Avatar')
                   span.header
                     span.from
                       | Jane Sanders
@@ -183,20 +183,20 @@
                 a.dropdown-menu-sub-footer View all messages
 
           li
-            a.btn(href='#')
-              i.halflings-icon.white.wrench
+            a.btn(href='index.html#')
+              i.halflings.wrench.white
 
           li.dropdown
-            a.btn.dropdown-toggle(data-toggle='dropdown', href='#')
-              i.halflings-icon.white.user
+            a.btn.dropdown-toggle(data-toggle='dropdown', href='index.html#')
+              i.halflings.user.white
               | Łukasz Holeczek
               span.caret
             ul.dropdown-menu
               li
-                a(href='#')
-                  i.halflings-icon.white.user
+                a(href='index.html#')
+                  i.halflings.user.white
                   | Profile
               li
                 a(href='login.html')
-                  i.halflings-icon.white.off
+                  i.halflings.off.white
                   | Logout
