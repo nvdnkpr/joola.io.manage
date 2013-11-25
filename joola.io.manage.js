@@ -60,10 +60,15 @@ joola.config = nconf;
 joola.redis = joola.config.stores.redis.redis;
 joola.dispatch = new Dispatch({});
 joola.common = require('./lib/common');
+joola.sdk = require('./lib/sdk');
 
 joola.domain = process.domain = domain.create();
-joola.domain.on('error', function (err) {
+joola.domain.on('error', function (domain, err) {
   joola.logger.error('Domain error! ' + err.message);
+
+  console.log(err);
+  console.trace();
+
   joola.logger.debug(err.stack);
 });
 
@@ -241,8 +246,7 @@ loadConfiguration(function () {
       });
       app.use(express.static(path.join(__dirname, 'assets')));
       app.get('/', index.index);
-      app.get('/configure', index.configure);
-      app.get('/logger', index.logger);
+      app.get('/joola.io.js', index.sdk);
       app.get('/:resource', index.route);
       app.get('/:resource/:action', index.route);
 
