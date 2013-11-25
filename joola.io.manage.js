@@ -36,7 +36,7 @@ nconf.argv()
   .env();
 
 var options_redis = {
-  host: 'localhost',
+  host: 'db.joola.io',
   port: 6379,
   DB: 0
 };
