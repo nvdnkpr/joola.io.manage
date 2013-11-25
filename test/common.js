@@ -1,7 +1,7 @@
 "use strict";
 
 var
-	path = require('path');
+  path = require('path');
 
 global.sinon = require('sinon');
 global.should = require('should');
@@ -13,3 +13,7 @@ chai.use(require('sinon-chai'));
 global.expect = chai.expect;
 
 global.common = exports;
+global.testRunning = true;
+
+global._joolaio;
+global._sdk;

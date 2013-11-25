@@ -52,15 +52,17 @@ var udpserver = dgram.createSocket("udp4");
 var io;
 
 var joola = {};
-global.joola = joola;
+global.joola = module.exports = joola;
 
 joola.logger = logger;
 joola.io = io;
 joola.config = nconf;
 joola.redis = joola.config.stores.redis.redis;
+joola.events = require('./lib/common/events');
 joola.dispatch = new Dispatch({});
 joola.common = require('./lib/common');
 joola.sdk = require('./lib/sdk');
+
 
 joola.domain = process.domain = domain.create();
 joola.domain.on('error', function (domain, err) {
@@ -106,6 +108,7 @@ nconf.set('server', options_server);
 var port, secureport;
 
 var loadConfiguration = function (callback) {
+  joola.events.emit('loadConfiguration');
   joola.config.get('version', function (err, value) {
     if (err)
       throw err;
@@ -132,13 +135,15 @@ var loadConfiguration = function (callback) {
 };
 
 loadConfiguration(function () {
+  joola.events.emit('loadConfiguration:done');
   //console.log('config loaded');
 //Application settings
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
   app.use(express.favicon('public/assets/ico/favicon.ico'));
   app.use(express.compress());
-  app.use(express.bodyParser());
+  app.use(express.json());
+  app.use(express.urlencoded());
   app.use(express.methodOverride());
   app.use(express.cookieParser());
   /*app.use(express.session({
@@ -204,9 +209,8 @@ loadConfiguration(function () {
 
   var startSocketIO = function (callback) {
     var socketioWildcard = require('socket.io-wildcard');
-    joola.io = io = socketioWildcard(require('socket.io')).listen(httpServer);
-
-    //io.set('log level', 0);
+    joola.io = io = socketioWildcard(require('socket.io')).listen(httpServer, { log: false });
+    io.set('log level', 0);
     io.sockets.on('connection', function (socket) {
       socket.on('*', function (event) {
         var req = {};
@@ -278,6 +282,7 @@ loadConfiguration(function () {
     setupSubscribers(function () {
       startHTTP(function () {
         startSocketIO(function () {
+          joola.events.emit('init:done');
         });
       });
     });
