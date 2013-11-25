@@ -10,6 +10,7 @@
  */
 
 before(function (done) {
+  this.timeout = 50000;
   _joolaio = require('../../joola.io.manage.js');
   _joolaio.events.on('init:done', function () {
     _sdk = require('../../lib/sdk/index');

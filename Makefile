@@ -1,12 +1,13 @@
 REPORTER=spec
 
 test:
-		$(MAKE) build
+		$(MAKE) compile
 		$(MAKE) lint
 		@NODE_ENV=test ./node_modules/.bin/mocha -b --require blanket --reporter $(REPORTER)
 
-build:
-		node ./build/compilesdk.js
+compile:
+		@NODE_ENV=test
+		node build/compilesdk.js
 
 lint:
 		./node_modules/.bin/jshint ./lib
@@ -21,4 +22,4 @@ test-coveralls:
 		$(MAKE) test REPORTER=mocha-lcov-reporter | ./node_modules/.bin/coveralls --verbose
 		rm -rf lib-cov
 
-.PHONY: build
+.PHONY: test
