@@ -21,4 +21,4 @@ test-coveralls:
 		$(MAKE) test REPORTER=mocha-lcov-reporter | ./node_modules/.bin/coveralls --verbose
 		rm -rf lib-cov
 
-.PHONY: test
+.PHONY: build

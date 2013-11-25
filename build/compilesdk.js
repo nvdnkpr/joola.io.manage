@@ -7,6 +7,7 @@ var
 var buffer = '';
 browserify.stdout.on('data', function (data) {
   buffer += data;
+  console.log(data);
 });
 
 browserify.stderr.on('data', function (data) {
