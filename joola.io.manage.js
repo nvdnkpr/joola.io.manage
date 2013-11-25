@@ -203,7 +203,9 @@ loadConfiguration(function () {
   };
 
   var startSocketIO = function (callback) {
-    joola.io = io = require('socket.io').listen(httpServer);
+    var socketioWildcard = require('socket.io-wildcard');
+    joola.io = io = socketioWildcard(require('socket.io')).listen(httpServer);
+
     //io.set('log level', 0);
     io.sockets.on('connection', function (socket) {
       socket.on('datasources/list', function (params) {
@@ -224,6 +226,24 @@ loadConfiguration(function () {
 
         return router.route(req, res);
       });
+      socket.on('*', function (event) {
+        var req = {};
+        req.query = {};
+        req.params = event.args || {};
+        req.params.resource = event.name.split('/')[0];
+        req.params.action = event.name.split('/')[1];
+        req.url = '';
+
+        var res = {};
+        res.status = function (statuscode) {
+
+        };
+        res.json = function (json) {
+          return socket.emit('datasources/list:done', json);
+        };
+
+        return router.route(req, res);
+      })
     });
     return callback();
   };
