@@ -208,24 +208,6 @@ loadConfiguration(function () {
 
     //io.set('log level', 0);
     io.sockets.on('connection', function (socket) {
-      socket.on('datasources/list', function (params) {
-        var req = {};
-        req.query = {};
-        req.params = params || {};
-        req.params.resource = 'datasources';
-        req.params.action = 'list';
-        req.url = '';
-
-        var res = {};
-        res.status = function (statuscode) {
-
-        };
-        res.json = function (json) {
-          return socket.emit('datasources/list:done', json);
-        };
-
-        return router.route(req, res);
-      });
       socket.on('*', function (event) {
         var req = {};
         req.query = {};
@@ -239,7 +221,7 @@ loadConfiguration(function () {
 
         };
         res.json = function (json) {
-          return socket.emit('datasources/list:done', json);
+          return socket.emit(event.name + ':done', json);
         };
 
         return router.route(req, res);
