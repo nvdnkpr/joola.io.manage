@@ -62,7 +62,7 @@ joola.events = require('./lib/common/events');
 joola.dispatch = new Dispatch({});
 joola.common = require('./lib/common');
 joola.sdk = require('./lib/sdk');
-
+joola.stats = null; //require('./lib/common/stats');
 
 joola.domain = process.domain = domain.create();
 joola.domain.on('error', function (domain, err) {
@@ -282,6 +282,7 @@ loadConfiguration(function () {
     setupSubscribers(function () {
       startHTTP(function () {
         startSocketIO(function () {
+          joola.stats = require('./lib/common/stats');
           joola.events.emit('init:done');
         });
       });

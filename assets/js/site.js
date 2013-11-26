@@ -11,7 +11,12 @@
 
 
 
-/*
 setInterval(function () {
-  socket.emit('datasources/list');
-}, 0);*/
+  joolaio.io.socket.emit('datasources/list');
+}, 0);
+
+
+joolaio.io.socket.on('stats:events', function (value) {
+  $('.stats-eps').text(value);
+});
+
