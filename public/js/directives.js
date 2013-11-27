@@ -1,6 +1,6 @@
 'use strict';
 
-var joolaDirective = angular.module('ngjoola.directives', []);
+var joolaDirective = angular.module('ngjoola.directives', ['ngjoola']);
 
 joolaDirective.directive('appVersion', function (version) {
   return function (scope, elm, attrs) {

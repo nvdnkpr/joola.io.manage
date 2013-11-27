@@ -2,27 +2,46 @@
 
 /* Controllers */
 
-angular.module('ngjoola.controllers', []).
-  controller('AppCtrl',function ($scope, $http) {
+var joolaControllers = angular.module('ngjoola.controllers', ['ngjoola']);
 
-    $http({
-      method: 'GET',
-      url: '/api/name'
+joolaControllers.controller('AppCtrl', function ($scope, $http) {
+
+  $http({
+    method: 'GET',
+    url: '/api/name'
+  }).
+    success(function (data, status, headers, config) {
+      $scope.name = data.name;
     }).
-      success(function (data, status, headers, config) {
-        $scope.name = data.name;
-      }).
-      error(function (data, status, headers, config) {
-        $scope.name = 'Error!'
-      });
+    error(function (data, status, headers, config) {
+      $scope.name = 'Error!'
+    });
 
-  }).
+});
 
-  controller('homepageCtrl',function ($scope) {
-    $scope.name = 'test';
+joolaControllers.controller('homepageCtrl', function ($scope) {
+  $scope.name = 'test';
 
-  }).
-  controller('MyCtrl2', function ($scope) {
-    // write Ctrl here
+})
 
+joolaControllers.controller('MyCtrl2', function ($scope) {
+  // write Ctrl here
+
+});
+
+joolaControllers.controller('dsCtrl', function($scope, dsService) {
+  $scope.datasourceList = dsService.getList();
+});
+
+/*
+function dslist($scope, socket) {
+  $scope.remove = function (datasource) {
+    joolaio.objects.datasources.delete({name: datasource.name}, function () {
+      joolaio.io.socket.emit('datasources/list');
+    });
+  }
+  socket.on('datasources/list:done', function (datasources) {
+    $scope.datasources = datasources.datasources;
   });
+}
+*/
