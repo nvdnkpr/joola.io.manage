@@ -36,7 +36,7 @@ nconf.argv()
   .env();
 
 var options_redis = {
-  host: 'db.joola.io',
+  host: 'localhost',
   port: 6379,
   DB: 0
 };
@@ -225,6 +225,7 @@ loadConfiguration(function () {
 
         };
         res.json = function (json) {
+          console.log('[send] ' + event.name + ':done');
           return socket.emit(event.name + ':done', json);
         };
 
@@ -251,10 +252,12 @@ loadConfiguration(function () {
         });
       });
       app.use(express.static(path.join(__dirname, 'assets')));
+      
       app.get('/', index.index);
 
       app.get('/joola.io.js', index.sdk);
-      app.get('/configure', index.configure);
+      app.get('/datasources/view', index.datasourcesview);
+      app.get('/datasources/update', index.datasourcesupdate);
       app.get('/logger', index.logger);
 
       app.get('/:resource', index.route);

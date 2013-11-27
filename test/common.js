@@ -13,7 +13,7 @@ chai.use(require('sinon-chai'));
 global.expect = chai.expect;
 
 global.common = exports;
-global.testRunning = true;
+global.testRunning = false;
 
 global._joolaio;
 global._sdk;
