@@ -30,7 +30,9 @@ joolaControllers.controller('MyCtrl2', function ($scope) {
 });
 
 joolaControllers.controller('dsCtrl', function($scope, dsService) {
-  $scope.datasourceList = dsService.getList();
+  $scope.list = dsService.getList();
+  $scope.add = dsService.add();
+  $scope.delete = dsService.delete();
 });
 
 /*
